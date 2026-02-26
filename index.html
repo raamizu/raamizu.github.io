@@ -39,7 +39,7 @@
     function syncVideos() {
       videos.forEach(video => {
         if (video !== master) {
-          if (Math.abs(video.currentTime - master.currentTime) > 0.05) {
+          if (Math.abs(video.currentTime - master.currentTime) > 0.02) {
             video.currentTime = master.currentTime;
           }
         }
