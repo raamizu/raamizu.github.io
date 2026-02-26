@@ -26,14 +26,30 @@
         <source src="katsuki.mp4" type="video/mp4">
       </video>
       <script>
-        window.addEventListener("load", () => {
-          const videos = document.querySelectorAll(".sync");
-          videos.forEach(video => {
-            video.currentTime = 0;
-            video.play();
-          });
-        });
-      </script>
+  window.addEventListener("load", () => {
+    const videos = document.querySelectorAll(".sync");
+
+    const master = videos[0];
+
+    videos.forEach(video => {
+      video.muted = true;
+      video.play();
+    });
+
+    function syncVideos() {
+      videos.forEach(video => {
+        if (video !== master) {
+          if (Math.abs(video.currentTime - master.currentTime) > 0.05) {
+            video.currentTime = master.currentTime;
+          }
+        }
+      });
+      requestAnimationFrame(syncVideos);
+    }
+
+    syncVideos();
+  });
+</script>
      <!-- <img src = "https://media1.tenor.com/m/sOxwGZLxF_EAAAAC/bakugo-katsuki-katsuki-bakugo.gif" alt="go beyond.">
       <img src = "https://media1.tenor.com/m/9XtBfTMa3RgAAAAC/izuku-izuku-midoriya.gif" alt="go beyond."><br> -->
       <audio src="butterflyeffectslowed.mp3" controls autoplay/></audio>
